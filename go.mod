@@ -1,4 +1,4 @@
-module github.com/Oliverwqcwrw/rocketmq-client-go
+module github.com/Oliverwqcwrw/aolifu-go
 
 go 1.19
 
