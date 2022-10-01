@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Oliverwqcwrw/rocketmq-client-go/greetings"
+	"github.com/Oliverwqcwrw/aolifu-go/greetings"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/example/stringutil"
 	"log"

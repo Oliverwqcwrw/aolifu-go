@@ -57,6 +57,9 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("ID of added album: %+v\n", albID)
+
+	alb2, err := albumByID2(2)
+	fmt.Printf("Album found: %+v\n", alb2)
 }
 
 // albumsByArtist queries for albums that have the specified artist name.
@@ -109,4 +112,27 @@ func addAlbum(alb Album) (int64, error) {
 		return 0, fmt.Errorf("addAlbum: %v", err)
 	}
 	return id, nil
+}
+
+// AlbumByID retrieves the specified album.
+func albumByID2(id int) (Album, error) {
+	// Define a prepared statement. You'd typically define the statement
+	// elsewhere and save it for use in functions such as this one.
+	stmt, err := db.Prepare("SELECT * FROM album WHERE id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var album Album
+
+	// Execute the prepared statement, passing in an id value for the
+	// parameter whose placeholder is ?
+	err = stmt.QueryRow(id).Scan(&album.ID, &album.Title, &album.Artist, &album.Price)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// Handle the case of no rows returned.
+		}
+		return album, err
+	}
+	return album, nil
 }
