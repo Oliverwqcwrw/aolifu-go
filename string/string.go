@@ -54,6 +54,8 @@ func main() {
 
 	startsWithOrEndWith()
 
+	modifyStr()
+
 }
 
 func str2Int() {
@@ -148,4 +150,17 @@ func startsWithOrEndWith() {
 	fmt.Println(strings.HasPrefix("!hello world !", "!"))
 
 	fmt.Println(strings.HasSuffix("!hello world!", "!"))
+}
+
+func modifyStr() {
+	str1 := "hello world"
+	arr1 := []byte(str1)
+	arr1[0] = 'a'
+	str1 = string(arr1)
+	fmt.Println(str1)
+
+	arr2 := []rune(str1)
+	arr2[0] = '中'
+	str1 = string(arr2)
+	fmt.Println(str1)
 }
