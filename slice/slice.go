@@ -28,6 +28,8 @@ func main() {
 	copySlice()
 
 	strSlice()
+
+	mapSlice()
 }
 
 func makeSlice() {
@@ -72,5 +74,26 @@ func strSlice() {
 	str1 := "hello World"
 	slice1 := str1[3:]
 	fmt.Println(slice1)
+}
+
+func mapSlice() {
+	mapSlice := make([]map[string]string, 2)
+
+	mapSlice[0] = make(map[string]string, 2)
+	mapSlice[0]["name"] = "oliver"
+	mapSlice[0]["age"] = "12"
+
+	mapSlice[1] = make(map[string]string, 2)
+	mapSlice[1]["name"] = "galan"
+	mapSlice[1]["age"] = "23"
+
+	map3 := map[string]string{
+		"name": "monica",
+		"age":  "12",
+	}
+
+	mapSlice = append(mapSlice, map3)
+
+	fmt.Println(mapSlice)
 
 }
