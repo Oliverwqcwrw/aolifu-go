@@ -7,6 +7,25 @@ import (
 	"time"
 )
 
+type Person struct {
+	Name string
+	Age  int
+}
+
+type student struct {
+	Name string
+	age  int
+}
+
+func NewStudent(name string, age int) *student {
+
+	return &student{Name: name, age: age}
+}
+
+func (s *student) GetAge() int {
+	return s.age
+}
+
 // Hello returns a greeting for the named person.
 func Hello(name string) (string, error) {
 

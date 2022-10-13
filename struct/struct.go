@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 func main() {
 	var person Person
@@ -27,14 +30,44 @@ func main() {
 	person.map1 = make(map[int]int)
 	person.map1[2] = 10
 	fmt.Println("person value is ", person)
+
+	jsonPerson()
 }
 
 type Person struct {
-	Name    string
-	Age     int
-	Address string
+	Name    string `json:"name"`
+	Age     int    `json:"age"`
+	Address string `json:"address"`
 
 	pointer *int
 	slice   []int
 	map1    map[int]int
+}
+
+func definePerson() {
+	var person1 Person
+	person1.Name = "a"
+
+	person2 := new(Person)
+	person2.Name = "b"
+
+	person3 := &Person{}
+	person3.Name = "c"
+
+	person4 := Person{}
+	person4.Name = "d"
+}
+
+func jsonPerson() {
+	person1 := Person{}
+	person1.Name = "oliver"
+	person1.Address = "beiJing"
+	person1.Age = 12
+
+	jsonStr, err := json.Marshal(person1)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Println("person1 json str is ", string(jsonStr))
 }
