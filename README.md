@@ -1,2 +1,2 @@
 # aolifu-go
-study golang
+golang
