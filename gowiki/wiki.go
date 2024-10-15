@@ -14,14 +14,15 @@ var templates = template.Must(template.ParseFiles("edit.html", "view.html"))
 var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 
 func main() {
-	p1 := &Page{Title: "test", Body: []byte("This is a sample Page.")}
+	p1 := &Page{Title: "TestPage", Body: []byte("This is a sample Page.")}
 	p1.save()
-	p2, _ := loadPage("test")
+	p2, _ := loadPage("TestPage")
 	fmt.Println(string(p2.Body))
-
+	// http.HandleFunc("/", handler)
 	http.HandleFunc("/view/", makeHandler(viewHandler))
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
@@ -71,13 +72,11 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	/*err = t.Execute(w, p)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}*/
+
 }
 
 func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
+
 	body := r.FormValue("body")
 	p := &Page{Title: title, Body: []byte(body)}
 	err := p.save()
