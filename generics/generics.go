@@ -27,6 +27,10 @@ func main() {
 		SumIntsOrFloats[string, int64](ints),
 		SumIntsOrFloats[string, float64](floats))
 
+	fmt.Printf("Generic Sums, type parameters inferred: %v and %v\n",
+		SumIntsOrFloats(ints),
+		SumIntsOrFloats(floats))
+
 	fmt.Printf("Generic Sums with Constraint: %v and %v\n",
 		SumNumbers(ints),
 		SumNumbers(floats))

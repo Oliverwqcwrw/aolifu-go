@@ -20,7 +20,7 @@ func main() {
 	// Capture connection properties.
 	cfg := mysql.Config{
 		User:                 "root",
-		Passwd:               "root",
+		Passwd:               "rootroot",
 		Net:                  "tcp",
 		Addr:                 "localhost:3306",
 		DBName:               "go",
@@ -38,6 +38,7 @@ func main() {
 		log.Fatal(pingErr)
 	}
 	fmt.Println("Connected!")
+
 	name := "John Coltrane"
 	albums, _ := albumsByArtist(name)
 	fmt.Printf("albums found %+v \n", albums)

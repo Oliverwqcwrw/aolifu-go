@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/Oliverwqcwrw/aolifu-go/greetings"
-	"golang.org/x/example/hello/reverse"
+	"github.com/Oliverwqcwrw/aolifu-go/hello/morestrings"
+	"github.com/google/go-cmp/cmp"
 	"log"
 	"os"
 )
@@ -26,11 +27,14 @@ func init() {
 }
 
 func main() {
-	fmt.Println(reverse.String("Hello"))
 	names := []string{"Gladys", "Samantha", "Darrin"}
 	messages, err := greetings.Hellos(names)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(messages)
+	for _, message := range messages {
+		fmt.Println(message)
+	}
+	fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
+	fmt.Println(cmp.Diff("Hello World", "Hello Go"))
 }

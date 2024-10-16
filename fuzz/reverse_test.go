@@ -6,18 +6,21 @@ import (
 )
 
 func FuzzReverse(f *testing.F) {
-	testcases := []string{"Hello, world", " ", "!12345"}
+	testcases := []string{"Hello World", "", "!12345"}
 	for _, tc := range testcases {
-		f.Add(tc) // Use f.Add to provide a seed corpus
+		f.Add(tc)
 	}
+
 	f.Fuzz(func(t *testing.T, orig string) {
-		rev, revError := Reverse(orig)
-		if revError != nil {
+		rev, err1 := Reverse(orig)
+		if err1 != nil {
 			return
 		}
-		doubleRev, doubleError := Reverse(rev)
-		if doubleError != nil {
+
+		doubleRev, err2 := Reverse(rev)
+		if err2 != nil {
 			return
+			t.Errorf("Reverse error: %v", err2)
 		}
 		t.Logf("Number of runes: orig=%d, rev=%d, doubleRev=%d", utf8.RuneCountInString(orig), utf8.RuneCountInString(rev), utf8.RuneCountInString(doubleRev))
 		if orig != doubleRev {
@@ -39,7 +42,7 @@ func TestReverse(t *testing.T) {
 	}
 	for _, tc := range testcases {
 		rev, err1 := Reverse(tc.in)
-		if err1 == nil {
+		if err1 != nil {
 			return
 		}
 		if rev != tc.want {
