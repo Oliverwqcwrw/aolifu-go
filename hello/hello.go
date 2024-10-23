@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/Oliverwqcwrw/aolifu-go/greetings"
-	"github.com/Oliverwqcwrw/aolifu-go/hello/morestrings"
-	"github.com/google/go-cmp/cmp"
 	"log"
 	"os"
 )
@@ -27,14 +24,12 @@ func init() {
 }
 
 func main() {
-	names := []string{"Gladys", "Samantha", "Darrin"}
-	messages, err := greetings.Hellos(names)
-	if err != nil {
-		log.Fatal(err)
+	var age int
+	fmt.Scanf("%d", &age)
+	fmt.Println("You are", age, "years old!")
+	if count := 10; count > 5 {
+		fmt.Println("Count is greater than 5")
+	} else {
+		fmt.Println("Count is not greater than 5")
 	}
-	for _, message := range messages {
-		fmt.Println(message)
-	}
-	fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
-	fmt.Println(cmp.Diff("Hello World", "Hello Go"))
 }
