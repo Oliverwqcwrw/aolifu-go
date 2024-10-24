@@ -7,6 +7,7 @@ func main() {
 	fmt.Println("sum value is ", sum)
 
 	rangeLoop()
+	rangeStr()
 
 }
 
@@ -21,6 +22,13 @@ func commonLoop(a int, args ...int) int {
 func rangeLoop() {
 	var arr1 = [3]int{1, 2, 3}
 	for _, value := range arr1 {
+		fmt.Println(value)
+	}
+}
+
+func rangeStr() {
+	str := "hello"
+	for _, value := range str {
 		fmt.Println(value)
 	}
 }

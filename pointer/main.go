@@ -3,8 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	printAddr()
-	modifyPointerValue()
+	var a *int
+	a = new(int)
+	*a = 10
+	fmt.Println(*a)
+	fmt.Println(a)
 }
 
 func printAddr() {
@@ -15,6 +18,13 @@ func printAddr() {
 	fmt.Printf("i2 type is %T , i2 value is %v , i2 address is %v \n", i2, i2, &i2)
 
 	fmt.Println("i2 point value is", *i2)
+}
+
+func printAddr2() {
+	var i int = 5
+	fmt.Println("i address is ", &i)
+	var i2 *int = &i
+	fmt.Println("i2 point value is ", *i2)
 }
 
 func modifyPointerValue() {

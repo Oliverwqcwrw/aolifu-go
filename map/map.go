@@ -6,29 +6,10 @@ import (
 )
 
 func main() {
-
-	map1 := make(map[string]string)
+	var map1 map[string]string
+	map1 = make(map[string]string, 10)
 	map1["str1"] = "hello1"
-	map1["str2"] = "hello2"
-	delete(map1, "str1")
-
-	// delete all element
-	map1 = make(map[string]string)
 	fmt.Println(map1)
-
-	create2()
-
-	create3()
-
-	createStudentInfo()
-
-	queryElement()
-
-	traverse()
-
-	sortMap()
-
-	studentMap()
 
 }
 

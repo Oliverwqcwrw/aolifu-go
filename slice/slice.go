@@ -8,28 +8,6 @@ func main() {
 	slice1 := arr1[1:3]
 	fmt.Printf("slice1 value is %v, slice1 len is %v, slice1 cap is %v \n", slice1, len(slice1), cap(slice1))
 
-	makeSlice()
-
-	makeSlice2()
-
-	traverse()
-
-	slice2 := arr1[:]
-	fmt.Println(slice2)
-
-	slice3 := arr1[0:]
-	fmt.Println(slice3)
-
-	slice4 := arr1[:3]
-	fmt.Println(slice4)
-
-	appendItem()
-
-	copySlice()
-
-	strSlice()
-
-	mapSlice()
 }
 
 func makeSlice() {
