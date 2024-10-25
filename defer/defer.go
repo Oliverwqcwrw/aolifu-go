@@ -4,8 +4,10 @@ import "fmt"
 
 func main() {
 
-	resp := sum(10, 20)
-	fmt.Println("resp value is ", resp)
+	var whatever [5]struct{}
+	for i := range whatever {
+		defer func() { fmt.Println(i) }()
+	}
 }
 
 func sum(a int, b int) int {

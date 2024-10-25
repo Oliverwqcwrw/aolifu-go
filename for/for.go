@@ -3,10 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	sum := commonLoop(10, 20, 30)
-	fmt.Println("sum value is ", sum)
-
-	rangeLoop()
 	rangeStr()
 
 }
@@ -28,7 +24,7 @@ func rangeLoop() {
 
 func rangeStr() {
 	str := "hello"
-	for _, value := range str {
-		fmt.Println(value)
+	for i, _ := range str {
+		fmt.Println(str[i])
 	}
 }
