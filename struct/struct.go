@@ -6,32 +6,17 @@ import (
 )
 
 func main() {
-	var person Person
-	fmt.Println(person)
+	map1 := make(map[int]Student)
+	map1[1] = Student{id: 1, name: "bob", age: 12}
+	map1[2] = Student{id: 2, name: "bob2", age: 13}
+	fmt.Println(map1)
+	delete(map1, 1)
+	fmt.Println(map1)
+}
 
-	if person.pointer == nil {
-		fmt.Println("pointer is nil")
-	}
-	if person.slice == nil {
-		fmt.Println("slice is nil")
-	}
-	if person.map1 == nil {
-		fmt.Println("map1 is nil")
-	}
-
-	num1 := 10
-	person.pointer = &num1
-	fmt.Println("person value is ", person)
-
-	person.slice = make([]int, 2)
-	person.slice[0] = 10
-	fmt.Println("person value is  ", person)
-
-	person.map1 = make(map[int]int)
-	person.map1[2] = 10
-	fmt.Println("person value is ", person)
-
-	jsonPerson()
+type User struct {
+	string
+	int
 }
 
 type Person struct {
@@ -42,6 +27,10 @@ type Person struct {
 	pointer *int
 	slice   []int
 	map1    map[int]int
+}
+
+func (p *Person) setAge(newAge int) {
+	p.Age = newAge
 }
 
 func definePerson() {
@@ -70,4 +59,27 @@ func jsonPerson() {
 		fmt.Println(err.Error())
 	}
 	fmt.Println("person1 json str is ", string(jsonStr))
+}
+
+type Animal struct {
+	Name string
+}
+
+func (a *Animal) move() {
+	fmt.Printf("%s 会动 \n", a.Name)
+}
+
+type Dog struct {
+	Feet int8
+	*Animal
+}
+
+func (d *Dog) wang() {
+	fmt.Printf("%s 会wang", d.Name)
+}
+
+type Student struct {
+	id   int
+	name string
+	age  int
 }
