@@ -3,15 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	defer func() {
-		fmt.Println(recover())
-	}()
-
-	defer func() {
-		panic("defer panic")
-	}()
-
-	panic("test panic")
+	test2(2, 1)
 }
 
 func test() {
@@ -22,4 +14,21 @@ func test() {
 	}()
 
 	panic("panic error!")
+}
+
+func test2(x, y int) {
+	var z int
+
+	func() {
+		defer func() {
+			if recover() != nil {
+				z = 0
+			}
+		}()
+		panic("test panic")
+		z = x / y
+		return
+	}()
+
+	fmt.Printf("x / y = %d\n", z)
 }

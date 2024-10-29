@@ -89,11 +89,21 @@ func sortAdult() {
 }
 
 func main() {
-	adult := Adult{}
-	student := Student{}
-	people := People{}
-	adult.action(student)
-	adult.action(people)
+	x := 2.3
+	justifyType(x)
 
-	sortAdult()
+}
+
+func justifyType(x interface{}) {
+	switch x.(type) {
+	case int:
+		fmt.Println("int")
+	case string:
+		fmt.Println("string")
+	case bool:
+		fmt.Println("bool")
+	default:
+		fmt.Println("unsupported type")
+
+	}
 }

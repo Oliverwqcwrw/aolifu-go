@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -11,10 +12,10 @@ var (
 )
 
 func main() {
-	// --- channel of function ---
-	fc := make(chan func() string, 2)
-	fc <- func() string { return "Hello, World!" }
-	println((<-fc)())
+	var peo People = &Student{}
+	think := "bitch"
+	fmt.Println(peo.Speak(think))
+
 }
 
 func accumulator() func(a int) int {
@@ -34,4 +35,39 @@ func formatSuffix(suffix string) func(fileName string) string {
 			return fileName + ".jpg"
 		}
 	}
+}
+
+type User struct {
+	id   int
+	name string
+}
+
+type Manager struct {
+	User
+	title string
+}
+
+func (self *User) Test() {
+	fmt.Printf("%p, %v\n", self, self)
+}
+
+type Person struct {
+	name string
+	sex  string
+	age  int
+}
+
+type People interface {
+	Speak(string) string
+}
+
+type Student struct{}
+
+func (stu *Student) Speak(think string) (talk string) {
+	if think == "sb" {
+		talk = "你是个大帅比"
+	} else {
+		talk = "您好"
+	}
+	return
 }
