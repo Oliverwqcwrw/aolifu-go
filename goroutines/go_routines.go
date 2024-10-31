@@ -2,17 +2,36 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 	"sync"
 	"time"
 )
 
-func main() {
-	go test2()
-	test1()
-	fmt.Println(runtime.NumCPU())
-	factorial()
+var wg sync.WaitGroup
 
+func main() {
+	// 合起来写
+	go func() {
+		i := 0
+		for {
+			i++
+			fmt.Printf("new goroutine: i = %d\n", i)
+			time.Sleep(time.Second)
+		}
+	}()
+	i := 0
+	for {
+		i++
+		fmt.Printf("main goroutine: i = %d\n", i)
+		time.Sleep(time.Second)
+		if i == 2 {
+			break
+		}
+	}
+}
+
+func test3(i int) {
+	defer wg.Done()
+	fmt.Println("hello go routines!", i)
 }
 
 func test1() {
