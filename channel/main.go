@@ -3,7 +3,34 @@ package main
 import "fmt"
 
 func main() {
-	test5()
+	test6()
+}
+
+func test6() {
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			ch1 <- i
+		}
+		close(ch1)
+	}()
+
+	go func() {
+		for {
+			if data, ok := <-ch1; ok {
+				ch2 <- data + 2
+			} else {
+				break
+			}
+		}
+		close(ch2)
+	}()
+
+	for i := range ch2 {
+		fmt.Println(i)
+	}
+
 }
 
 func test5() {
