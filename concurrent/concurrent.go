@@ -10,9 +10,30 @@ var x int64
 var wg sync.WaitGroup
 var lock sync.Mutex
 var rwlock sync.RWMutex
+var m = make(map[string]int)
 
 func main() {
-	test2()
+	test3()
+}
+
+func get(key string) int {
+	return m[key]
+}
+
+func set(key string, value int) {
+	m[key] = value
+}
+
+func test3() {
+	wg.Add(1)
+	go hello()
+	fmt.Println("main goroutine done")
+	wg.Wait()
+}
+
+func hello() {
+	defer wg.Done()
+	fmt.Println("Hello ")
 }
 
 func test2() {
