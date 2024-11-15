@@ -5,12 +5,14 @@ go 1.19
 require (
 	github.com/apache/rocketmq-client-go/v2 v2.1.1
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.8.1
 	github.com/gorilla/mux v1.8.1
 	github.com/gorilla/websocket v1.5.3
+	github.com/jmoiron/sqlx v1.4.0
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
