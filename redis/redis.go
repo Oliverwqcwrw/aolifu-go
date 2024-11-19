@@ -14,7 +14,15 @@ func main() {
 	fmt.Println("conn redis succ", conn)
 	defer conn.Close()
 
-	TestMultString(conn)
+	TestExpire(conn)
+}
+
+func TestExpire(conn redis.Conn) {
+	_, err := conn.Do("expire", "a", 10)
+	if err != nil {
+		fmt.Println("expire failed", err)
+		return
+	}
 }
 
 func TestMultString(conn redis.Conn) {
