@@ -31,7 +31,58 @@ func init() {
 }
 
 func main() {
-	test3()
+	TestTransaction()
+}
+
+func TestTransaction() {
+	conn, err := Db.Begin()
+	if err != nil {
+		fmt.Println("begin failed", err)
+		return
+	}
+	res, err := conn.Exec("insert into person(username, sex, email) values(?,?,?)", "stu001", "man", "stu001@qq.com")
+	if err != nil {
+		fmt.Println("exec failed", err)
+		conn.Rollback()
+		return
+	}
+	id, err := res.LastInsertId()
+	if err != nil {
+		fmt.Println("exec failed", err)
+		conn.Rollback()
+		return
+	}
+	fmt.Println("insert succ", id)
+	res, err = conn.Exec("insert into person(username, sex, email) values (?,?,?)", "stu002", "woman", "stu002@qq.com")
+	if err != nil {
+		fmt.Println("exec failed", err)
+		conn.Rollback()
+		return
+	}
+	id, err = res.LastInsertId()
+	if err != nil {
+		fmt.Println("exec failed", err)
+		conn.Rollback()
+		return
+
+	}
+	fmt.Println("insert succ", id)
+	conn.Commit()
+}
+
+func TestDelete() {
+	res, err := Db.Exec("delete from person where user_id = ?", 3)
+	if err != nil {
+		fmt.Println("exec failed", err)
+		return
+	}
+	num, err := res.RowsAffected()
+	if err != nil {
+		fmt.Println("get rows failed", err)
+		return
+	}
+	fmt.Println("delete succ", num)
+
 }
 
 func test3() {
