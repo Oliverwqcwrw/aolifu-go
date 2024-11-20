@@ -5,16 +5,54 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+var pool *redis.Pool
+
+func init() {
+	pool = &redis.Pool{
+		MaxIdle:     16,
+		MaxActive:   0,
+		IdleTimeout: 300,
+		Dial: func() (redis.Conn, error) {
+			return redis.Dial("tcp", "localhost:6379")
+		},
+	}
+}
+
 func main() {
-	conn, err := redis.Dial("tcp", "localhost:6379")
+	conn := pool.Get()
+	defer conn.Close()
+	pool.Close()
+
+	TestHash(conn)
+}
+
+func TestHash(conn redis.Conn) {
+	_, err := conn.Do("hset", "books", "name1", "a")
 	if err != nil {
-		fmt.Println("conn redis failed", err)
+		fmt.Println("hset failed", err)
 		return
 	}
-	fmt.Println("conn redis succ", conn)
-	defer conn.Close()
+	str, err := redis.String(conn.Do("hget", "books", "name1"))
+	if err != nil {
+		fmt.Println("hget failed", err)
+		return
+	}
+	fmt.Println("hget succ", str)
+}
 
-	TestExpire(conn)
+func TestList(conn redis.Conn) {
+	_, err := conn.Do("lpush", "name_list", "a", "b", "c")
+	if err != nil {
+		fmt.Println("lpush failed", err)
+		return
+	}
+	conn.Do("lpop", "name_list")
+	str, err := redis.String(conn.Do("lpop", "name_list"))
+	if err != nil {
+		fmt.Println("lpop failed", err)
+	}
+	fmt.Println("pop succ", str)
+
 }
 
 func TestExpire(conn redis.Conn) {
