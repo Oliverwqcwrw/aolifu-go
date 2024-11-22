@@ -16,12 +16,12 @@ func init() {
 		Endpoints:   []string{"127.0.0.1:2379"},
 		DialTimeout: 5 * time.Second,
 	})
-	fmt.Println("connect succ")
+	log.Println("connect succ")
 }
 
 func main() {
 	defer client.Close()
-	TestKeepalive(client)
+	TestDistributedLock(client)
 
 }
 
@@ -30,6 +30,35 @@ func TestDistributedLock(client *clientv3.Client) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer s1.Close()
+	mut1 := concurrency.NewMutex(s1, "/my-lock/")
+
+	s2, err := concurrency.NewSession(client)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer s2.Close()
+	mut2 := concurrency.NewMutex(s2, "/my-lock/")
+	err = mut1.Lock(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("mut1 accquired lock")
+	m2Locked := make(chan struct{})
+	go func() {
+		defer close(m2Locked)
+		err := mut2.Lock(context.TODO())
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+	err = mut1.Unlock(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("mut1 release lock ")
+	<-m2Locked
+	log.Println("lock for mut2")
 }
 
 func TestKeepalive(client *clientv3.Client) {
